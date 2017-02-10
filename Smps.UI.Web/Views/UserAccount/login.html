@@ -1,0 +1,50 @@
+﻿<div class="well well-sm text-center">
+    <!-- Epam logo  -->
+    <img src="./Content/images/epam-logo.png" class="img-responsive img-circle center-block" alt="<epam>" />
+    <!-- Start : Main content for the login page  -->
+    <div class="modal-content" style="margin-top: -17px;">
+        <!-- Begin # DIV Form -->
+        <div id="div-forms">
+            <a href="#" style="text-decoration:none; font-weight: bold; color: chocolate">
+                <h1>SMPS</h1>
+            </a>
+            <!-- Begin # Login Form -->
+            <form id="login-form" style="font-size:16px" ng-submit="login()">
+                <!-- Begin # Home Form -->
+                <div class="modal-body">
+                    <!-- Begin # Home Form -->
+                    <div class="alert alert-danger" ng-show="((message).length > 0)">{{message}}</div><!-- End # DIV Form -->
+                    <!-- Begin # Home Form -->
+                    <div class="form-group">
+                        <input id="username" class="border-color" name="username"
+                               ng-model="userObject.userName"
+                               ng-minlength="6"
+                               autofocus required
+                               placeholder="Please Enter Email-id"
+                               type="email" />
+                    </div>
+                    <!-- End # DIV Form -->
+                    <!-- Begin # Home Form -->
+                    <div class="form-group">
+                        <input id="password" type="password" name="password" ng-model="userObject.password"
+                               maxlength="16" autocomplete="off" required
+                               placeholder="Please Enter Password" />
+                    </div>
+                    <!-- End # DIV Form -->
+                </div>
+                <!-- Begin # Home Form -->
+                <div class="modal-footer">
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary btn-lg ">Login</button>
+                    </div>
+                </div>
+                <!-- End # DIV Form -->
+            </form>
+            <!-- End # Login Form -->
+
+        </div>
+        <!-- End # DIV Form -->
+
+    </div>
+    <!-- End : Main content for the login page  -->
+</div>
