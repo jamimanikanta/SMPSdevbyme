@@ -65,37 +65,37 @@
   <ItemGroup>
     <Compile Include="Data\Repositories\EfUserAccountRepository.cs" />
     <Compile Include="HolderDetail.cs">
-      <DependentUpon>SmpsDataModel.tt</DependentUpon>
+      <DependentUpon>smpsdatamodel123.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SmpsDataModel.Context.cs">
+    <Compile Include="smpsdatamodel123.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SmpsDataModel.Context.tt</DependentUpon>
+      <DependentUpon>smpsdatamodel123.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="SmpsDataModel.cs">
+    <Compile Include="smpsdatamodel123.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SmpsDataModel.tt</DependentUpon>
+      <DependentUpon>smpsdatamodel123.tt</DependentUpon>
     </Compile>
-    <Compile Include="SmpsDataModel.Designer.cs">
+    <Compile Include="smpsdatamodel123.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SmpsDataModel.edmx</DependentUpon>
+      <DependentUpon>smpsdatamodel123.edmx</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>SmpsDataModel.tt</DependentUpon>
+      <DependentUpon>smpsdatamodel123.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="SmpsDataModel.edmx">
+    <EntityDeploy Include="smpsdatamodel123.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SmpsDataModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>smpsdatamodel123.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="SmpsDataModel.edmx.diagram">
-      <DependentUpon>SmpsDataModel.edmx</DependentUpon>
+    <None Include="smpsdatamodel123.edmx.diagram">
+      <DependentUpon>smpsdatamodel123.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -124,15 +124,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SmpsDataModel.Context.tt">
+    <Content Include="smpsdatamodel123.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SmpsDataModel.edmx</DependentUpon>
-      <LastGenOutput>SmpsDataModel.Context.cs</LastGenOutput>
+      <DependentUpon>smpsdatamodel123.edmx</DependentUpon>
+      <LastGenOutput>smpsdatamodel123.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="SmpsDataModel.tt">
+    <Content Include="smpsdatamodel123.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SmpsDataModel.edmx</DependentUpon>
-      <LastGenOutput>SmpsDataModel.cs</LastGenOutput>
+      <DependentUpon>smpsdatamodel123.edmx</DependentUpon>
+      <LastGenOutput>smpsdatamodel123.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

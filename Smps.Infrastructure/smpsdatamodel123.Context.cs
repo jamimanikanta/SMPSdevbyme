@@ -13,10 +13,10 @@ namespace Smps.Infrastructure
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SMPSEntities : DbContext
+    public partial class SMPSEntities1 : DbContext
     {
-        public SMPSEntities()
-            : base("name=SMPSEntities")
+        public SMPSEntities1()
+            : base("name=SMPSEntities1")
         {
         }
     

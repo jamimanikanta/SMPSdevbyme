@@ -48,7 +48,7 @@ namespace Smps.Infrastructure.Tests.Account
         public void CheckValidUser()
         {
             User user;
-            using (SMPSEntities objectContext = new SMPSEntities())
+            using (SMPSEntities1 objectContext = new SMPSEntities1())
             {
                 IQueryable<User> users = objectContext.Users;
                 user = users.FirstOrDefault();
@@ -66,7 +66,7 @@ namespace Smps.Infrastructure.Tests.Account
         public void GetUserProfile()
         {
             User user;
-            using (SMPSEntities objectContext = new SMPSEntities())
+            using (SMPSEntities1 objectContext = new SMPSEntities1())
             {
                 IQueryable<User> users = objectContext.Users;
                 user = users.FirstOrDefault();

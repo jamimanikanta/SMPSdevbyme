@@ -4,14 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SMPSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SMPSModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="HolderDetails">
           <Key>
             <PropertyRef Name="HolderDetailId" />
           </Key>
           <Property Name="HolderDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmpNo" Type="int" />
-          <Property Name="ParkingSlotNumber" Type="int" />
+          <Property Name="ParkingSlotNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="SlotReleasedDate" Type="datetime" Nullable="false" />
           <Property Name="AllocationType" Type="int" Nullable="false" />
@@ -23,17 +23,17 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmpNo" Type="int" Nullable="false" />
-          <Property Name="FirstName" Type="varchar" MaxLength="50" />
-          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
           <Property Name="MobileNumber" Type="bigint" />
-          <Property Name="UserLoginId" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="UserType" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ParkingSlotNumber" Type="varchar" MaxLength="50" />
-          <Property Name="Location" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserLoginId" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserLoginPassword" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParkingSlotNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Location" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="OperationType" Type="smallint" Nullable="false" />
-          <Property Name="UserLoginPassword" Type="varchar" MaxLength="20" />
         </EntityType>
-        <Association Name="Fk_HolderDetails_UserId_Users_Id">
+        <Association Name="Fk_HolderDetails_Users_EmpNo">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="HolderDetails" Type="Self.HolderDetails" Multiplicity="*" />
           <ReferentialConstraint>
@@ -45,38 +45,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SMPSModelStoreContainer">
+        <EntityContainer Name="SMPSModel1StoreContainer">
           <EntitySet Name="HolderDetails" EntityType="Self.HolderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="Fk_HolderDetails_UserId_Users_Id" Association="Self.Fk_HolderDetails_UserId_Users_Id">
+          <AssociationSet Name="Fk_HolderDetails_Users_EmpNo" Association="Self.Fk_HolderDetails_Users_EmpNo">
             <End Role="Users" EntitySet="Users" />
             <End Role="HolderDetails" EntitySet="HolderDetails" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SMPSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="SMPSEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="HolderDetails" EntityType="SMPSModel.HolderDetail" />
-          <EntitySet Name="Users" EntityType="SMPSModel.User" />
-          <AssociationSet Name="Fk_HolderDetails_UserId_Users_Id" Association="SMPSModel.Fk_HolderDetails_UserId_Users_Id">
-            <End Role="User" EntitySet="Users" />
-            <End Role="HolderDetail" EntitySet="HolderDetails" />
-          </AssociationSet>
-        </EntityContainer>
+      <Schema Namespace="SMPSModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="HolderDetail">
           <Key>
             <PropertyRef Name="HolderDetailId" />
           </Key>
           <Property Name="HolderDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmpNo" Type="Int32" />
-          <Property Name="ParkingSlotNumber" Type="Int32" />
+          <Property Name="ParkingSlotNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SlotReleasedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AllocationType" Type="Int32" Nullable="false" />
           <Property Name="OperationType" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="SMPSModel.Fk_HolderDetails_UserId_Users_Id" FromRole="HolderDetail" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.Fk_HolderDetails_Users_EmpNo" FromRole="HolderDetails" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -84,62 +77,70 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmpNo" Type="Int32" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MobileNumber" Type="Int64" />
-          <Property Name="UserLoginId" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="UserType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ParkingSlotNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Location" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UserLoginId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserLoginPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ParkingSlotNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="OperationType" Type="Int16" Nullable="false" />
-          <Property Name="UserLoginPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="HolderDetails" Relationship="SMPSModel.Fk_HolderDetails_UserId_Users_Id" FromRole="User" ToRole="HolderDetail" />
+          <NavigationProperty Name="HolderDetails" Relationship="Self.Fk_HolderDetails_Users_EmpNo" FromRole="Users" ToRole="HolderDetails" />
         </EntityType>
-        <Association Name="Fk_HolderDetails_UserId_Users_Id">
-          <End Type="SMPSModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="SMPSModel.HolderDetail" Role="HolderDetail" Multiplicity="*" />
+        <Association Name="Fk_HolderDetails_Users_EmpNo">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="HolderDetails" Type="Self.HolderDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="EmpNo" />
             </Principal>
-            <Dependent Role="HolderDetail">
+            <Dependent Role="HolderDetails">
               <PropertyRef Name="EmpNo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="SMPSEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="HolderDetails" EntityType="Self.HolderDetail" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="Fk_HolderDetails_Users_EmpNo" Association="Self.Fk_HolderDetails_Users_EmpNo">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="HolderDetails" EntitySet="HolderDetails" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SMPSModelStoreContainer" CdmEntityContainer="SMPSEntities">
+        <EntityContainerMapping StorageEntityContainer="SMPSModel1StoreContainer" CdmEntityContainer="SMPSEntities1">
           <EntitySetMapping Name="HolderDetails">
-            <EntityTypeMapping TypeName="SMPSModel.HolderDetail">
+            <EntityTypeMapping TypeName="SMPSModel1.HolderDetail">
               <MappingFragment StoreEntitySet="HolderDetails">
-                <ScalarProperty Name="OperationType" ColumnName="OperationType" />
-                <ScalarProperty Name="AllocationType" ColumnName="AllocationType" />
-                <ScalarProperty Name="SlotReleasedDate" ColumnName="SlotReleasedDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ParkingSlotNumber" ColumnName="ParkingSlotNumber" />
-                <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
                 <ScalarProperty Name="HolderDetailId" ColumnName="HolderDetailId" />
+                <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
+                <ScalarProperty Name="ParkingSlotNumber" ColumnName="ParkingSlotNumber" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="SlotReleasedDate" ColumnName="SlotReleasedDate" />
+                <ScalarProperty Name="AllocationType" ColumnName="AllocationType" />
+                <ScalarProperty Name="OperationType" ColumnName="OperationType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="SMPSModel.User">
+            <EntityTypeMapping TypeName="SMPSModel1.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="UserLoginPassword" ColumnName="UserLoginPassword" />
-                <ScalarProperty Name="OperationType" ColumnName="OperationType" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="ParkingSlotNumber" ColumnName="ParkingSlotNumber" />
-                <ScalarProperty Name="UserType" ColumnName="UserType" />
-                <ScalarProperty Name="UserLoginId" ColumnName="UserLoginId" />
-                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="UserLoginId" ColumnName="UserLoginId" />
+                <ScalarProperty Name="UserLoginPassword" ColumnName="UserLoginPassword" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="ParkingSlotNumber" ColumnName="ParkingSlotNumber" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="OperationType" ColumnName="OperationType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

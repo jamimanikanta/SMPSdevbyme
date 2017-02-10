@@ -41,7 +41,7 @@ namespace Smps.Infrastructure.Data.Repositories
             {
                 //The User Profile Object.
                 UserProfile userProfile;
-                using (SMPSEntities objectContext = new SMPSEntities())
+                using (SMPSEntities1 objectContext = new SMPSEntities1())
                 {
                     //Using IQueryable for better performance.
                     IQueryable<User> users = objectContext.Users;
@@ -86,7 +86,7 @@ namespace Smps.Infrastructure.Data.Repositories
             UserProfile userProfile = null;
             try
             {
-                using (SMPSEntities objectContext = new SMPSEntities())
+                using (SMPSEntities1 objectContext = new SMPSEntities1())
                 {
                     //Using IQueryable for better performance.
                     IQueryable<User> users = objectContext.Users;
