@@ -65,37 +65,46 @@
   <ItemGroup>
     <Compile Include="Data\Repositories\EfUserAccountRepository.cs" />
     <Compile Include="HolderDetail.cs">
-      <DependentUpon>smpsdatamodel123.tt</DependentUpon>
+      <DependentUpon>SmpsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="smpsdatamodel123.Context.cs">
+    <Compile Include="SmpsModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>smpsdatamodel123.Context.tt</DependentUpon>
+      <DependentUpon>SmpsModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="smpsdatamodel123.cs">
+    <Compile Include="SmpsModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>smpsdatamodel123.tt</DependentUpon>
+      <DependentUpon>SmpsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="smpsdatamodel123.Designer.cs">
+    <Compile Include="SmpsModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>smpsdatamodel123.edmx</DependentUpon>
+      <DependentUpon>SmpsModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>SmpsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>SmpsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>SmpsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>smpsdatamodel123.tt</DependentUpon>
+      <DependentUpon>SmpsModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="smpsdatamodel123.edmx">
+    <EntityDeploy Include="SmpsModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>smpsdatamodel123.Designer.cs</LastGenOutput>
+      <LastGenOutput>SmpsModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="smpsdatamodel123.edmx.diagram">
-      <DependentUpon>smpsdatamodel123.edmx</DependentUpon>
+    <None Include="SmpsModel.edmx.diagram">
+      <DependentUpon>SmpsModel.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -124,16 +133,19 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="smpsdatamodel123.Context.tt">
+    <Content Include="SmpsModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>smpsdatamodel123.edmx</DependentUpon>
-      <LastGenOutput>smpsdatamodel123.Context.cs</LastGenOutput>
+      <DependentUpon>SmpsModel.edmx</DependentUpon>
+      <LastGenOutput>SmpsModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="smpsdatamodel123.tt">
+    <Content Include="SmpsModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>smpsdatamodel123.edmx</DependentUpon>
-      <LastGenOutput>smpsdatamodel123.cs</LastGenOutput>
+      <DependentUpon>SmpsModel.edmx</DependentUpon>
+      <LastGenOutput>SmpsModel.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -17,6 +17,7 @@
         var userProfile;
         function authenticateUser(userObject) {
             debugger;
+            
             var deferred = $q.defer();
             $http(
                     {

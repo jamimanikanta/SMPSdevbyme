@@ -26,7 +26,7 @@ namespace Smps.WebApi.Tests.Account
         public UserProfile userProfile { get; set; }
 
         private Mock<IUserAccount> mockRepository;
-
+        
         public UserAccountTest()
         {
             mockRepository = new Mock<IUserAccount>();

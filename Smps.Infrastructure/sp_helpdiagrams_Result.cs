@@ -10,16 +10,13 @@
 namespace Smps.Infrastructure
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class HolderDetail
+    public partial class sp_helpdiagrams_Result
     {
-        public int HolderDetailId { get; set; }
-        public Nullable<int> EmpNo { get; set; }
-        public string ParkingSlotNumber { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public System.DateTime SlotReleasedDate { get; set; }
-        public int AllocationType { get; set; }
-        public short OperationType { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

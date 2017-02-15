@@ -16,7 +16,10 @@ namespace Smps.WebApi.Controllers
     using System.Web.Http.Cors;
     using Core.BusinessObjects.Account;
     using Smps.Core.Interfaces.Account;
+    using Smps.Core.Interfaces.Holder1;
+    using Smps.Core.BusinessObjects.Holder1;
     using SMPS.CrossCutting.CustomExceptions;
+    
 
     /// <summary>
     /// As a Technical Lead I want to create a solution using N- Tier architecture in visual studio 2015 
@@ -34,6 +37,10 @@ namespace Smps.WebApi.Controllers
         //  This is used across this class.
         /// </summary>
         private IUserAccount obj;
+        private IHolderPerson1 IHP;
+
+        //private IHolder hldr;
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserAccountController" /> class.
@@ -45,6 +52,11 @@ namespace Smps.WebApi.Controllers
         {
             //Assigning the object.
             this.obj = obj;
+        }
+        public UserAccountController(IHolderPerson1 obj)
+        {
+            //Assigning the object.
+            this.IHP = obj;
         }
 
         /// <summary>
@@ -73,7 +85,25 @@ namespace Smps.WebApi.Controllers
                 throw;
             }
         }
+        [HttpPost]
+        public void Releaseslot(HolderPerson1 usr)
+        {
+            try
+            {
+                IHP.releaseslot(usr);
 
+            }
+            catch (NoDataFoundException)
+            {
+                //throw the exception
+                throw;
+            }
+            catch (Exception)
+            {
+                //throw the exception
+                throw;
+            }
+        }
         /// <summary>
         /// Gets the user profile.
         /// </summary>

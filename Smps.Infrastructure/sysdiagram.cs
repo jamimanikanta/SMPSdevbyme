@@ -12,14 +12,12 @@ namespace Smps.Infrastructure
     using System;
     using System.Collections.Generic;
     
-    public partial class HolderDetail
+    public partial class sysdiagram
     {
-        public int HolderDetailId { get; set; }
-        public Nullable<int> EmpNo { get; set; }
-        public string ParkingSlotNumber { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public System.DateTime SlotReleasedDate { get; set; }
-        public int AllocationType { get; set; }
-        public short OperationType { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

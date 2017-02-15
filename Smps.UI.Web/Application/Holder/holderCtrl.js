@@ -13,13 +13,17 @@
 //-----------------------------------------------------------------------
 (function () {
     angular.module('SMPSapp')
-               .controller('holderCtrl', ['$scope', '$rootScope', '$http', 'userAccountService', 'auth', holderCtrl]);
+               .controller('holderCtrl', ['$scope', '$rootScope', '$http', 'userAccountService', 'auth','$window', holderCtrl]);
     //This controller method instantiation of holder user info i.e holder info for the CRUD operation.
     /*This controller method instantiation of holder user info i.e holder info for the CRUD operation.*/
     /*Control method start*/
-    function holderCtrl($scope, $rootScope, $http, userAccountService, auth) {
+    function holderCtrl($scope, $rootScope, $http, userAccountService, auth, $window)
+    {
+        debugger;
         $scope.isReleased = false;
         $scope.userProfile = auth;
+        
+        
         if ($scope.userProfile.UserType=='Seeker')
         {
             /*flag to display seeker page info*/
@@ -28,27 +32,48 @@
         }
         // The below method will fetches the user data to populate on the views.
         /*The below method will fetches the user data to populate on the views.*/
-        $scope.getProfile = function () {
+        $scope.releaseSlot = function ()
+        {
+            debugger;
             $http({
                 method: 'GET',
-                url: $rootScope.apiURL + 'useraccount/GetUserProfile?userid=' + userAccountService.userProfile.userName
+                url: $rootScope.apiURL + 'useraccount/GetUserProfile?userid=' + $scope.userProfile.username
             }).then(function (response) {
+                debugger;
                 userAccountService.userProfile = response.data;
+                var holder = response.data;
+                $scope.releaseSlotoutput(holder);
             }, function () {
                 $scope.userProfile = 'No data found for specified user';
             });
         };
         //This function is relase the slot based on the request
         /*This function is relase the slot based on the request*/
-        $scope.releaseSlot = function () {
+        $scope.releaseSlotoutput = function (holder) {
             /*holder code for relasing slot*/
+            
+            
+           
+            debugger;
+            $http({
+                method: 'Post',
+                url: $rootScope.apiURL + 'useraccount/Releaseslot',
+                data: JSON.stringify(holder),
+                headers: { 'Content-Type': 'application/json' }
+            }).then(function (response) {
 
+                alert("sucess");
+                $scope.isReleased = true;
+                $scope.successMessage = 'Thank you!! Slot released successfully';
+            }, function () {
+                alert("Error");
+                $scope.userProfile = 'No data found for specified user';
+            });
 
 
 
             /*condition to display success message*/
-            $scope.isReleased = true;
-            $scope.successMessage = 'Thank you!! Slot released successfully';
+            
         };
     }
 }());

@@ -16,11 +16,13 @@ namespace Smps.Infrastructure.Data.Repositories
 {
     using System;
     using System.Linq;
-    using Infrastructure;
     using Smps.Core.BusinessObjects.Account;
     using Smps.Core.Interfaces.Account.Repositories;
     using SMPS.CrossCutting.Constants;
     using SMPS.CrossCutting.CustomExceptions;
+    using Smps.Core.Interfaces.Holder1.Repositories;
+    using System.Collections.Generic;
+    using Core.BusinessObjects.Holder1;
 
     /// <summary>
     /// This class contains the methods related to user account.
@@ -28,7 +30,7 @@ namespace Smps.Infrastructure.Data.Repositories
     /// Which would be passed from the consumers
     /// Prefixed this with EF to represent that this is an entity framework class.
     /// </summary>
-    public class EfUserAccountRepository : IUserAccountRepository
+    public class EfUserAccountRepository : IUserAccountRepository, Holderpersonrep1
     {
         /// <summary>
         /// Gets the user profile
@@ -41,7 +43,7 @@ namespace Smps.Infrastructure.Data.Repositories
             {
                 //The User Profile Object.
                 UserProfile userProfile;
-                using (SMPSEntities1 objectContext = new SMPSEntities1())
+                using (SMPSEntities123 objectContext = new SMPSEntities123())
                 {
                     //Using IQueryable for better performance.
                     IQueryable<User> users = objectContext.Users;
@@ -73,7 +75,7 @@ namespace Smps.Infrastructure.Data.Repositories
                 throw;
             }
         }
-
+        
         /// <summary>
         /// Validates the user and returns profile
         /// </summary>
@@ -86,7 +88,7 @@ namespace Smps.Infrastructure.Data.Repositories
             UserProfile userProfile = null;
             try
             {
-                using (SMPSEntities1 objectContext = new SMPSEntities1())
+                using (SMPSEntities123 objectContext = new SMPSEntities123())
                 {
                     //Using IQueryable for better performance.
                     IQueryable<User> users = objectContext.Users;
@@ -145,6 +147,9 @@ namespace Smps.Infrastructure.Data.Repositories
                     userProfile.ParkingSlotNumber = user.ParkingSlotNumber;
                     //User Type.
                     userProfile.UserType = user.UserType;
+                    //User Type.
+                    userProfile.username = user.UserLoginId;
+                    userProfile.EmpNo = user.EmpNo;
                 }
                 else
                 {
@@ -161,6 +166,53 @@ namespace Smps.Infrastructure.Data.Repositories
 
             //return user profile
             return userProfile;
+
         }
+
+        public void releaseslot(HolderPerson1 HLD)
+        {
+                HolderDetail holder = new HolderDetail();
+                List<HolderDetail> list = new List<HolderDetail>();
+            using (SMPSEntities123 objectContext = new SMPSEntities123())
+            {
+
+                list = objectContext.HolderDetails.Where(h => h.EmpNo == HLD.EmpNo && h.SlotReleasedDate == DateTime.Now).ToList();
+                if (list.Count > 0)
+                {
+
+                }
+                else
+                {
+                    var affectedRows = objectContext.Database.ExecuteSqlCommand("holderdatainsertion @EmpNo={0},@ParkingSlotNumber={1},@CreatedDate={2},@SlotReleasedDate={3},@AllocationType={4},@OperationType={5}", HLD.EmpNo, HLD.ParkingSlotNumber, DateTime.Now, DateTime.Now, 1, HLD.OperationType);
+
+
+                }
+
+            }
+            throw new NotImplementedException();
+        }
+
+        //public void releaseslot(Core.BusinessObjects.User.HUser usr)
+        //{
+        //    HolderDetail holder = new HolderDetail();
+        //    List<HolderDetail> list = new List<HolderDetail>();
+        //    using (SMPSEntities123 objectContext = new SMPSEntities123())
+        //    {
+
+        //        list = objectContext.HolderDetails.Where(h => h.EmpNo == usr.EmpNo && h.SlotReleasedDate == DateTime.Now).ToList();
+        //        if (list.Count > 0)
+        //        {
+
+        //        }
+        //        else
+        //        {
+        //            var affectedRows = objectContext.Database.ExecuteSqlCommand("holderdatainsertion @EmpNo={0},@ParkingSlotNumber={1},@CreatedDate={2},@SlotReleasedDate={3},@AllocationType={4},@OperationType={5}", usr.EmpNo, usr.ParkingSlotNumber, DateTime.Now, DateTime.Now, 1, usr.OperationType);
+
+
+        //        }
+
+        //    }
+
+        //}
     }
 }

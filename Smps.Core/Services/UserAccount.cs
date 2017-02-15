@@ -66,6 +66,7 @@ namespace Smps.Core.Services
                 throw;
             }
         }
+       
 
         /// <summary>
         /// Validates the user and returns profile

@@ -14,12 +14,6 @@ namespace Smps.Infrastructure
     
     public partial class User
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
-        {
-            this.HolderDetails = new HashSet<HolderDetail>();
-        }
-    
         public int Id { get; set; }
         public int EmpNo { get; set; }
         public string FirstName { get; set; }
@@ -31,8 +25,5 @@ namespace Smps.Infrastructure
         public string ParkingSlotNumber { get; set; }
         public string Location { get; set; }
         public short OperationType { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HolderDetail> HolderDetails { get; set; }
     }
 }
