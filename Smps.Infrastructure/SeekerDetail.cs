@@ -12,9 +12,9 @@ namespace Smps.Infrastructure
     using System;
     using System.Collections.Generic;
     
-    public partial class HolderDetail
+    public partial class SeekerDetail
     {
-        public int HolderDetailId { get; set; }
+        public int SeekerDetailId { get; set; }
         public Nullable<int> EmpNo { get; set; }
         public string ParkingSlotNumber { get; set; }
         public System.DateTime CreatedDate { get; set; }

@@ -4,12 +4,24 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SMPSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SMPSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="HolderDetails">
           <Key>
             <PropertyRef Name="HolderDetailId" />
           </Key>
           <Property Name="HolderDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpNo" Type="int" />
+          <Property Name="ParkingSlotNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="SlotReleasedDate" Type="datetime" Nullable="false" />
+          <Property Name="AllocationType" Type="int" Nullable="false" />
+          <Property Name="OperationType" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeekerDetails">
+          <Key>
+            <PropertyRef Name="SeekerDetailId" />
+          </Key>
+          <Property Name="SeekerDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmpNo" Type="int" />
           <Property Name="ParkingSlotNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
@@ -43,6 +55,30 @@
           <Property Name="Location" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="OperationType" Type="smallint" Nullable="false" />
         </EntityType>
+        <Association Name="Fk_HolderDetails_Users_EmpNo">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="HolderDetails" Type="Self.HolderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="EmpNo" />
+            </Principal>
+            <Dependent Role="HolderDetails">
+              <PropertyRef Name="EmpNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_SeekerDetails_Users_EmpNo">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="SeekerDetails" Type="Self.SeekerDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="EmpNo" />
+            </Principal>
+            <Dependent Role="SeekerDetails">
+              <PropertyRef Name="EmpNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="holderdatainsertion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EmpNo" Type="int" Mode="In" />
@@ -84,11 +120,19 @@
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="SMPSModelStoreContainer">
           <EntitySet Name="HolderDetails" EntityType="Self.HolderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeekerDetails" EntityType="Self.SeekerDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Fk_HolderDetails_Users_EmpNo" Association="Self.Fk_HolderDetails_Users_EmpNo">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="HolderDetails" EntitySet="HolderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_SeekerDetails_Users_EmpNo" Association="Self.Fk_SeekerDetails_Users_EmpNo">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SeekerDetails" EntitySet="SeekerDetails" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SMPSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -103,6 +147,7 @@
           <Property Name="SlotReleasedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AllocationType" Type="Int32" Nullable="false" />
           <Property Name="OperationType" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="SMPSModel.Fk_HolderDetails_Users_EmpNo" FromRole="HolderDetail" ToRole="User" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -129,6 +174,8 @@
           <Property Name="ParkingSlotNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="OperationType" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="SeekerDetails" Relationship="SMPSModel.Fk_SeekerDetails_Users_EmpNo" FromRole="User" ToRole="SeekerDetail" />
+          <NavigationProperty Name="HolderDetails" Relationship="SMPSModel.Fk_HolderDetails_Users_EmpNo" FromRole="User" ToRole="HolderDetail" />
         </EntityType>
         <EntityContainer Name="SMPSEntities123" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="HolderDetails" EntityType="Self.HolderDetail" />
@@ -172,6 +219,15 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="SeekerDetails" EntityType="SMPSModel.SeekerDetail" />
+          <AssociationSet Name="Fk_SeekerDetails_Users_EmpNo" Association="SMPSModel.Fk_SeekerDetails_Users_EmpNo">
+            <End Role="User" EntitySet="Users" />
+            <End Role="SeekerDetail" EntitySet="SeekerDetails" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_HolderDetails_Users_EmpNo" Association="SMPSModel.Fk_HolderDetails_Users_EmpNo">
+            <End Role="User" EntitySet="Users" />
+            <End Role="HolderDetail" EntitySet="HolderDetails" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -184,6 +240,43 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="SeekerDetail">
+          <Key>
+            <PropertyRef Name="SeekerDetailId" />
+          </Key>
+          <Property Name="SeekerDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpNo" Type="Int32" />
+          <Property Name="ParkingSlotNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SlotReleasedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AllocationType" Type="Int32" Nullable="false" />
+          <Property Name="OperationType" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="SMPSModel.Fk_SeekerDetails_Users_EmpNo" FromRole="SeekerDetail" ToRole="User" />
+        </EntityType>
+        <Association Name="Fk_SeekerDetails_Users_EmpNo">
+          <End Type="SMPSModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="SMPSModel.SeekerDetail" Role="SeekerDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="EmpNo" />
+            </Principal>
+            <Dependent Role="SeekerDetail">
+              <PropertyRef Name="EmpNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_HolderDetails_Users_EmpNo">
+          <End Type="SMPSModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="SMPSModel.HolderDetail" Role="HolderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="EmpNo" />
+            </Principal>
+            <Dependent Role="HolderDetail">
+              <PropertyRef Name="EmpNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -256,6 +349,19 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="SMPSModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="SMPSModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="SeekerDetails">
+            <EntityTypeMapping TypeName="SMPSModel.SeekerDetail">
+              <MappingFragment StoreEntitySet="SeekerDetails">
+                <ScalarProperty Name="OperationType" ColumnName="OperationType" />
+                <ScalarProperty Name="AllocationType" ColumnName="AllocationType" />
+                <ScalarProperty Name="SlotReleasedDate" ColumnName="SlotReleasedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ParkingSlotNumber" ColumnName="ParkingSlotNumber" />
+                <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
+                <ScalarProperty Name="SeekerDetailId" ColumnName="SeekerDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

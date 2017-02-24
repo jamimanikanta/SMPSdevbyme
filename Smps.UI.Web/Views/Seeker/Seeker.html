@@ -1,7 +1,7 @@
 ﻿<!--
 This handles the holder related information
-As a developer I want to create a page with functionalities for Holders 
-To release their Allocated car parking slot 
+As a developer I want to create a page with functionalities for Holders
+To release their Allocated car parking slot
 So the Holder access this page to release his/her car parking slot for single (or) multiple days
 The Jira Id is SNLPROJECT-2078
 -->
@@ -16,12 +16,12 @@ The Jira Id is SNLPROJECT-2078
             </div>
             <!-- End # DIV Form -->
             <!-- Begin # Home Form -->
-            <form id="home-form" style="font-size: 16px" class="text-center" ng-submit="releaseSlot()">
+            <form id="home-form" style="font-size: 16px" class="text-center" ng-submit="RequestSlot()">
                 <!-- Begin # DIV Form -->
                 <div class="modal-body" style="">
                     <!-- Begin # DIV Form -->
                     <div class="form-group text-center">
-                        <button ng-hide="isReleased" type="submit" class="btn btn-danger btn-lg ">Release my Slot for Today</button>
+                        <button ng-hide="isReleased" type="submit" class="btn btn-danger btn-lg ">Request a slot </button>
                     </div>
                     <!-- End # Home Form -->
                     <!-- Begin # DIV Form for seeker message -->
@@ -29,7 +29,6 @@ The Jira Id is SNLPROJECT-2078
                     <div ng-show="isReleased">{{successMessage}}</div>
                 </div>
                 <!-- End # Home Form -->
-
             </form>
             <!-- End # Home Form -->
         </div>
@@ -39,19 +38,23 @@ The Jira Id is SNLPROJECT-2078
     <!-- Begin # DIV Form for epam sticker (parking slot) -->
     <div ng-hide="isReleased" class="text-center row">
         <div class="col-lg-5"></div>
-        <div  class="col-lg-2">
-            <h1 class="circle-multiline"><strong>&lt;epam&gt;
-             <br />
-                <br />
-                Parking Slot: {{userProfile.ParkingSlotNumber}}</strong></h1>
+        <div class="col-lg-2">
+            <h1 class="circle-multiline">
+                <strong>
+                    &lt;epam&gt;
+                    <br />
+                    <br />
+                    Parking Slot: {{userProfile.ParkingSlotNumber}}
+                </strong>
+            </h1>
         </div>
-        <div  class="col-lg-5"></div>
+        <div class="col-lg-5"></div>
     </div>
     <!-- #DIV end for parking slot sticker-->
     <!-- Begin # Home Form -->
     <br />
     <div class="row" ng-hide={{Noneedto}}>
-        <form id="profile-form" role="form" style="font-size: 16px" >
+        <form id="profile-form" role="form" style="font-size: 16px">
             <!-- Begin # Home Form --><div class="col-lg-4"></div><!-- End # DIV Form -->
             <!-- Begin # Home Form --><div class="center-block">
                 <!--table begins here-->
@@ -84,7 +87,6 @@ The Jira Id is SNLPROJECT-2078
         </form>
     </div>
     <!-- End # DIV Form -->
-
 </div>
 <style>
     /*Styling for circle multiline*/

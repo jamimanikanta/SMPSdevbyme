@@ -62,13 +62,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\Holder1\HolderPerson1.cs" />
+    <Compile Include="BusinessObjects\Seeker\SeekerPersonModel.cs" />
     <Compile Include="Interfaces\Account\IUserAccount.cs" />
     <Compile Include="Interfaces\Account\Repositories\IUserAccountRepository.cs" />
     <Compile Include="BusinessObjects\Account\UserProfile.cs" />
     <Compile Include="Interfaces\Holder1\IHolderPerson1.cs" />
     <Compile Include="Interfaces\Holder1\Repositories\Holderpersonrep1.cs" />
+    <Compile Include="Interfaces\Seeker\ISeekerService.cs" />
+    <Compile Include="Interfaces\Seeker\Repositories\ISeekerRep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\HolderPersonCls.cs" />
+    <Compile Include="Services\SeekerService.cs" />
     <Compile Include="Services\UserAccount.cs" />
   </ItemGroup>
   <ItemGroup>

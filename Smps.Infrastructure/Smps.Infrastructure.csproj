@@ -68,6 +68,9 @@
       <DependentUpon>SmpsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SeekerDetail.cs">
+      <DependentUpon>SmpsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SmpsModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

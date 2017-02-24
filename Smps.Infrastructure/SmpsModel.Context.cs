@@ -30,6 +30,7 @@ namespace Smps.Infrastructure
         public virtual DbSet<HolderDetail> HolderDetails { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<SeekerDetail> SeekerDetails { get; set; }
     
         public virtual int holderdatainsertion(Nullable<int> empNo, string parkingSlotNumber, string createdDate, string slotReleasedDate, Nullable<int> allocationType, Nullable<int> operationType)
         {

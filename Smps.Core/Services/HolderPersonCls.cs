@@ -8,12 +8,12 @@ using Smps.Core.BusinessObjects.Holder1;
 using Smps.Core.Interfaces.Holder1.Repositories;
 namespace Smps.Core.Services
 {
-  public  class HolderPersonCls : IHolderPerson1
+  public  class HolderPerson : IHolderPerson
     {
 
 
-        private Holderpersonrep1 Rep;
-        public HolderPersonCls(Holderpersonrep1 holderPerson)
+        private IHolderPersonRepository Rep;
+        public HolderPerson(IHolderPersonRepository holderPerson)
         {
             try
             {
@@ -25,12 +25,25 @@ namespace Smps.Core.Services
                 throw;
             }
         }
-        public void releaseslot(HolderPerson1 HLD)
+
+
+        public int releaseslot(BusinessObjects.Holder1.HolderPerson HLD)
         {
+            try
+            {
 
-            Rep.releaseslot(HLD);
+               return  Rep.releaseslot(HLD);
 
-            throw new NotImplementedException();
+            }
+            catch (Exception)
+            {
+
+                throw new NotImplementedException();
+
+            }
+
+
+
         }
     }
 }

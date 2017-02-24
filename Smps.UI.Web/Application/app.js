@@ -55,6 +55,25 @@
             resolve: {
                 auth: oAuth
             }
+        }).state('HolderErrorpage',
+        {
+            url: '/HolderErrorpage/:name?',
+            templateUrl: 'Views/Holder/HolderErrorpage.html',
+            controller: 'holderCtrl',
+           
+        resolve: {
+            auth: oAuth
+        }
+       }
+
+        ).state('Seeker',
+               {
+                   url: '/Seeker',
+            templateUrl: 'Views/Seeker/Seeker.html',
+            controller: 'SeekerCtrl',
+            resolve: {
+                 auth: oAuth
+                    }
         });
         //$locationProvider.html5Mode(true);
     });

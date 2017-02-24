@@ -79,7 +79,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Account\AccountTest.cs" />
+    <Compile Include="Holder\HolderUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seeker\SeekerUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SMPS.Core\Smps.Core.csproj">

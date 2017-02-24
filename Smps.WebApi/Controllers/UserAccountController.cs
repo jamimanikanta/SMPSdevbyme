@@ -19,7 +19,9 @@ namespace Smps.WebApi.Controllers
     using Smps.Core.Interfaces.Holder1;
     using Smps.Core.BusinessObjects.Holder1;
     using SMPS.CrossCutting.CustomExceptions;
+    using Core.Interfaces.Seeker;
     
+
 
     /// <summary>
     /// As a Technical Lead I want to create a solution using N- Tier architecture in visual studio 2015 
@@ -37,8 +39,10 @@ namespace Smps.WebApi.Controllers
         //  This is used across this class.
         /// </summary>
         private IUserAccount obj;
-        private IHolderPerson1 IHP;
+        private IHolderPerson IHP;
+        private ISeekerService ISS;
 
+        string resultMsg;
         //private IHolder hldr;
 
 
@@ -48,16 +52,15 @@ namespace Smps.WebApi.Controllers
         /// This is implemented using strategic design pattern.
         /// </summary>
         /// <param name="obj">The user account instance</param>
-        public UserAccountController(IUserAccount obj)
+        public UserAccountController(IUserAccount obj, IHolderPerson obj1, ISeekerService ISS)
         {
             //Assigning the object.
             this.obj = obj;
+            this.IHP = obj1;
+            this.ISS = ISS;
+            
         }
-        public UserAccountController(IHolderPerson1 obj)
-        {
-            //Assigning the object.
-            this.IHP = obj;
-        }
+
 
         /// <summary>
         /// This method checks if user is valid or not
@@ -85,12 +88,37 @@ namespace Smps.WebApi.Controllers
                 throw;
             }
         }
+        [HttpGet]
+        public string RequestSlot( int Empno)
+        {
+            
+            try
+            {
+                resultMsg = ISS.RequestForSlot(Empno);
+
+                
+            }
+            catch (Exception ex)
+            {
+
+
+                throw ex;
+
+            }
+
+            return resultMsg;
+
+
+        }
+
+
+
         [HttpPost]
-        public void Releaseslot(HolderPerson1 usr)
+        public int Releaseslot(HolderPerson usr)
         {
             try
             {
-                IHP.releaseslot(usr);
+              return   IHP.releaseslot(usr);
 
             }
             catch (NoDataFoundException)
@@ -101,7 +129,7 @@ namespace Smps.WebApi.Controllers
             catch (Exception)
             {
                 //throw the exception
-                throw;
+                throw new NotImplementedException();
             }
         }
         /// <summary>

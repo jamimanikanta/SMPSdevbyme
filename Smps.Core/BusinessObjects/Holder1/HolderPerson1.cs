@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Smps.Core.Interfaces.Holder1.Repositories;
 
 namespace Smps.Core.BusinessObjects.Holder1
 {
-   public class HolderPerson1
+   public class HolderPerson
     {
+        private IHolderPersonRepository @object;
+
+        
+
         /// <summary>
         /// Gets or sets the first name.
         /// </summary>

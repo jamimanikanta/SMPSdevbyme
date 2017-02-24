@@ -13,27 +13,35 @@
 //-----------------------------------------------------------------------
 (function () {
     angular.module('SMPSapp')
-               .controller('holderCtrl', ['$scope', '$rootScope', '$http', 'userAccountService', 'auth','$window', holderCtrl]);
+               .controller('holderCtrl', ['$scope', '$rootScope', '$http', 'userAccountService', 'auth', '$window', '$state',  holderCtrl]);
     //This controller method instantiation of holder user info i.e holder info for the CRUD operation.
     /*This controller method instantiation of holder user info i.e holder info for the CRUD operation.*/
     /*Control method start*/
-    function holderCtrl($scope, $rootScope, $http, userAccountService, auth, $window)
+    function holderCtrl($scope, $rootScope, $http, userAccountService, auth, $window, $state)
     {
+        
         debugger;
         $scope.isReleased = false;
         $scope.userProfile = auth;
+        $scope.name = $scope.userProfile.FirstName;
         
-        
-        if ($scope.userProfile.UserType=='Seeker')
+        if ($scope.userProfile.UserType==='Seeker')
         {
-            /*flag to display seeker page info*/
-            $scope.isReleased = true;
-            $scope.seekerMessage = 'Seeker page under construction';
+            debugger;
+            $state.go('Seeker');
+            
+            
+
+
+
+
         }
         // The below method will fetches the user data to populate on the views.
         /*The below method will fetches the user data to populate on the views.*/
         $scope.releaseSlot = function ()
         {
+            
+
             debugger;
             $http({
                 method: 'GET',
@@ -42,10 +50,13 @@
                 debugger;
                 userAccountService.userProfile = response.data;
                 var holder = response.data;
+               
                 $scope.releaseSlotoutput(holder);
-            }, function () {
+            }, function (reason) {
+                
                 $scope.userProfile = 'No data found for specified user';
             });
+            
         };
         //This function is relase the slot based on the request
         /*This function is relase the slot based on the request*/
@@ -62,12 +73,26 @@
                 headers: { 'Content-Type': 'application/json' }
             }).then(function (response) {
 
+                var res = response.data;
+                if(res===1){
+
+                    debugger;
                 alert("sucess");
                 $scope.isReleased = true;
                 $scope.successMessage = 'Thank you!! Slot released successfully';
-            }, function () {
-                alert("Error");
-                $scope.userProfile = 'No data found for specified user';
+
+            }else{
+                    debugger;
+                    $state.go('HolderErrorpage');
+                    
+                   }
+                
+            }, function ()
+            {
+               
+                //alert("Sorry Your Slot Already released");
+                //$scope.Noneedto = true;
+                //$scope.userProfile = 'No data found for specified user';
             });
 
 

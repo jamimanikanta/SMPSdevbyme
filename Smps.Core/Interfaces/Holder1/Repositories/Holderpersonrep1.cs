@@ -8,10 +8,11 @@ namespace Smps.Core.Interfaces.Holder1.Repositories
 {
 
     using BusinessObjects.Holder1;
-   public  interface Holderpersonrep1
+   public  interface IHolderPersonRepository
     {
 
-        void releaseslot(HolderPerson1 HLD);
+       int releaseslot(HolderPerson HLD);
+        
 
     }
 }

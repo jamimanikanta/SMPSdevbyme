@@ -17,7 +17,11 @@ namespace Smps.WebApi
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
     using Smps.WebApi.WindsorCastleResolver;
-   
+    using Core.Services;
+    using Core.Interfaces.Holder1;
+    using Controllers;
+    using Infrastructure.Data.Repositories;
+
     /// <summary>
     /// This class contains the web application details.
     /// </summary>
@@ -48,6 +52,8 @@ namespace Smps.WebApi
             container.Register(Classes.FromAssemblyNamed("Smps.WebApi").Where(type => type.IsPublic).WithService.DefaultInterfaces().LifestyleTransient());
             container.Register(Classes.FromAssemblyNamed("Smps.Infrastructure").Where(type => type.IsPublic).WithService.DefaultInterfaces().LifestyleTransient());
             container.Register(Classes.FromAssemblyNamed("Smps.core").Where(type => type.IsPublic).WithService.DefaultInterfaces().LifestyleTransient());
+            //container.Register(Component.For<IHolderPerson>().ImplementedBy<HolderPerson>().LifestyleTransient());
+           // container.Register(Component.For<Core.Interfaces.Holder1.Repositories.Holderpersonrep1>().ImplementedBy<EfUserAccountRepository>().LifestyleTransient());
             GlobalConfiguration.Configuration.Services.Replace(typeof(IHttpControllerActivator), new WindsorCompositionRoot(container));
         }
 
